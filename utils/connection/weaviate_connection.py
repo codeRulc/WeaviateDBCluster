@@ -13,7 +13,7 @@ def get_weaviate_client(cluster_endpoint=None, cluster_api_key=None, use_local=F
 
 		if use_local:
 			_client = weaviate.connect_to_local(
-				auth_credentials=weaviate.auth.AuthApiKey(cluster_api_key),
+				auth_credentials=weaviate.auth.AuthApiKey(cluster_api_key) if cluster_api_key else None,
 				skip_init_checks=True,
 				additional_config=AdditionalConfig(
 					timeout=Timeout(init=90, query=900, insert=900)
@@ -23,7 +23,7 @@ def get_weaviate_client(cluster_endpoint=None, cluster_api_key=None, use_local=F
 		else:
 			_client = weaviate.connect_to_weaviate_cloud(
 				cluster_url=cluster_endpoint,
-				auth_credentials=weaviate.auth.AuthApiKey(cluster_api_key),
+				auth_credentials=weaviate.auth.AuthApiKey(cluster_api_key) if cluster_api_key else None,
 				skip_init_checks=True,
 				additional_config=AdditionalConfig(
 					timeout=Timeout(init=90, query=900, insert=900)
