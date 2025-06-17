@@ -7,10 +7,12 @@ from weaviate.classes.query import MetadataQuery
 
 # Keyword search function
 # This function performs a keyword search on a specified collection in Weaviate.
-def keyword_search(client: Client, collection: str, query: str, limit: int = 3) -> Tuple[bool, str, pd.DataFrame, float]:
+def keyword_search(client: Client, collection: str, query: str, tenant_name: str = None, limit: int = 3) -> Tuple[bool, str, pd.DataFrame, float]:
 	try:
 		# Get collection
 		coll = client.collections.get(collection)
+		if tenant_name:
+			coll.with_tenant(tenant_name)
 
 		# Measure performance
 		start_time = time.time() * 1000 # Convert to milliseconds

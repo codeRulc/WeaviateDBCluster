@@ -8,10 +8,12 @@ from weaviate.classes.query import MetadataQuery
 
 # Hybrid search function
 # This function performs a hybrid search on a specified collection in Weaviate.
-def hybrid_search(client: Client, collection: str, query: str, alpha: float = 0.5, limit: int = 3) -> Tuple[bool, str, pd.DataFrame, float]:
+def hybrid_search(client: Client, collection: str, query: str, tenant_name: str = None, alpha: float = 0.5, limit: int = 3) -> Tuple[bool, str, pd.DataFrame, float]:
 	try:
 		# Get collection
 		coll = client.collections.get(collection)
+		if tenant_name:
+			coll.with_tenant(tenant_name)
 
 		# Measure performance
 		start_time = time.time() * 1000 # Convert to milliseconds
