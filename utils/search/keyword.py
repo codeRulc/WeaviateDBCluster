@@ -12,7 +12,7 @@ def keyword_search(client: Client, collection: str, query: str, tenant_name: str
 		# Get collection
 		coll = client.collections.get(collection)
 		if tenant_name:
-			coll.with_tenant(tenant_name)
+			coll = coll.with_tenant(tenant_name)
 
 		# Measure performance
 		start_time = time.time() * 1000 # Convert to milliseconds

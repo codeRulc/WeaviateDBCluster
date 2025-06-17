@@ -11,6 +11,8 @@ def initialize_session_state():
     """Initialize session state variables"""
     if 'selected_collection' not in st.session_state:
         st.session_state.selected_collection = None
+    if 'selected_tenant' not in st.session_state:
+        st.session_state.selected_tenant = None
     if 'search_query' not in st.session_state:
         st.session_state.search_query = ""
     if 'search_alpha' not in st.session_state:
@@ -84,6 +86,7 @@ def display_search_interface():
     if search_button:
         # Update session state
         st.session_state.selected_collection = selected_collection
+        st.session_state.selected_tenant = selected_tenant
         st.session_state.search_query = query
         st.session_state.search_type = search_type
         if search_type == "Hybrid":
